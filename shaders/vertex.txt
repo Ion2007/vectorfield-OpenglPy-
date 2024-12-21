@@ -1,0 +1,20 @@
+#version 330 core
+
+layout (location = 0) in vec3 vertexPos;   // Vertex position
+layout (location = 1) in vec3 vertexColor; // Vertex color
+layout (location = 2) in vec4 model_col0;  // Model matrix column 0
+layout (location = 3) in vec4 model_col1;  // Model matrix column 1
+layout (location = 4) in vec4 model_col2;  // Model matrix column 2
+layout (location = 5) in vec4 model_col3;  // Model matrix column 3
+
+uniform mat4 projection;
+uniform mat4 view;
+
+out vec3 fragmentColor;
+
+void main()
+{
+    mat4 model = mat4(model_col0, model_col1, model_col2, model_col3);
+    gl_Position = projection * view * model * vec4(vertexPos, 1.0);
+    fragmentColor = vertexColor;
+}
